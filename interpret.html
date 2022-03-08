@@ -1,0 +1,48 @@
+<html>
+<head>
+<script src="https://cdn.anychart.com/js/8.0.1/anychart-core.min.js"></script>
+<script src="https://cdn.anychart.com/js/8.0.1/anychart-pie.min.js"></script>
+<div id="container"></div>
+<script>
+var queryString = decodeURIComponent(window.location.search);
+queryString = queryString.substring(1); 
+var queries = queryString.split("&");
+const arr=[]; 
+for (var i = 0; i < queries.length; i++) 
+{ 
+  var value=queries[i].split("=");
+  arr.push(value[1]); 
+}
+var sum=0;
+for(var i=1;i<arr.length;i++)
+	sum+=Number(arr[i]);
+anychart.onDocumentReady(function() {
+
+  // set the data
+  var data = [
+      {x: "Savings", value:arr[0]-sum},
+      {x: "Groceries", value:arr[1]},
+      {x: "Bills", value:arr[2]},
+      {x: "Rent", value:arr[3]},
+      {x: "Loans", value:arr[4]},
+      {x: "Insurances ", value:arr[5]},
+      {x: "Personal", value:arr[6]},
+      {x: "Shopping", value:arr[7]},
+      {x: "Transportation",value:arr[8]} 
+  ];
+  // creating chart
+  var chart = anychart.pie();
+  
+  //chart title
+  chart.title("BUDGET DISTRIBUTION");
+  
+  // adding the data
+  chart.data(data);
+  
+  // displaying the chart
+  chart.container('container');
+  chart.draw();
+});
+</script>
+</head>
+</html>
